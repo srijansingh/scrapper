@@ -7,7 +7,7 @@ https.globalAgent.maxSockets = 1;
 
 
  
-const Product = require('../model/product');
+const Product = require('../model/category');
 const Flipkart = require('../model/flipkart');
 
 module.exports = {
