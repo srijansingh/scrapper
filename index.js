@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const CronJob = require('cron').CronJob;
 const port = process.env.PORT || 8000;
-const {amazon, clothing} = require('./scrapper/amazon');
+const {amazon} = require('./scrapper/amazon');
+const {clothing} = require('./scrapper/test');
 const {flipkart} = require('./scrapper/flipkart');
 
 const app = express();
@@ -10,7 +11,7 @@ const app = express();
 
 main = () => {
     console.log('Running Amazon');
-    amazon();
+    clothing();
 }
 // new CronJob('* 21 * * *', function() {
 //     amazon()
