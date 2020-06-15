@@ -97,6 +97,9 @@ module.exports = {
                                 console.log(res)
                            
                             })
+                            .catch(err => {
+                                console.log(err)
+                            })
                             
                         }
                         catch(e){
@@ -107,6 +110,8 @@ module.exports = {
                         data.pop();
                     }
                 ))
+            }).catch(err=>{
+                console.log(err)
             })
             
            
