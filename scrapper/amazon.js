@@ -24,26 +24,34 @@ module.exports = {
                 return await Promise.all(
                     response.map(async list =>{
                         const data = [];
-                        for(index=1; index<=10;index++)
-                        {
-                            const result = await request.get(`https://www.amazon.in/s?k=${list}&page=${index}`);
-                            const $ = await cheerio.load(result);
-                        
-                            $('.s-asin').each((i,el)=> {
-                                const title = $(el).find('h2 span').text();  
-                                const price = $(el).find('.a-price-whole').text();
-                                const rating = $(el).find('.a-spacing-top-micro span').attr('aria-label');
-                                const image = $(el).find('.s-image').attr('src');
-                                const link = 'https://www.amazon.in'+$(el).find('.a-link-normal').attr('href');
-                                const item = list;
-                                const datas = {i,title,price,rating,link,image,item };
-                                // const datas = {i, title}
-                                data.push(datas);
-                                
-                            });
+                        try{
+
+                            for(index=1; index<=10;index++)
+                            {
+
+                                const result = await request.get(`https://www.amazon.in/s?k=${list}&page=${index}`);
+                                const $ = await cheerio.load(result);
+                            
+                                $('.s-asin').each((i,el)=> {
+                                    const title = $(el).find('h2 span').text();  
+                                    const price = $(el).find('.a-price-whole').text();
+                                    const rating = $(el).find('.a-spacing-top-micro span').attr('aria-label');
+                                    const image = $(el).find('.s-image').attr('src');
+                                    const link = 'https://www.amazon.in'+$(el).find('.a-link-normal').attr('href');
+                                    const item = list;
+                                    const datas = {i,title,price,rating,link,image,item };
+                                    // const datas = {i, title}
+                                    data.push(datas);
+                                    
+                                });
+                            }
+                        }
+                        catch(e) {
+                            console.log(e);
                         }
                         
                         data.map(async product => {
+                            try{
                             const html = await request.get(product.link);
                             const $ = await cheerio.load(html);
                 
@@ -90,7 +98,10 @@ module.exports = {
                            
                             })
                             
-                               
+                        }
+                        catch(e){
+                            console.log(e)
+                        }
                         })
                         console.log("data : "+ data.length, list); 
                         data.pop();
