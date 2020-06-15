@@ -10,7 +10,7 @@ const app = express();
 
 main = () => {
     console.log('Running Amazon');
-    amazon();
+    flipkart();
 }
 // new CronJob('* 21 * * *', function() {
 //     amazon()
