@@ -24,7 +24,7 @@ module.exports = {
                 return await Promise.all(
                     response.map(async list =>{
                         const data = [];
-                        try{
+                        
 
                             for(index=1; index<=10;index++)
                             {
@@ -45,13 +45,10 @@ module.exports = {
                                     
                                 });
                             }
-                        }
-                        catch(e) {
-                            console.log(e);
-                        }
+                        
                         
                         data.map(async product => {
-                            try{
+                           
                             const html = await request.get(product.link);
                             const $ = await cheerio.load(html);
                 
@@ -101,10 +98,7 @@ module.exports = {
                                 console.log(err)
                             })
                             
-                        }
-                        catch(e){
-                            console.log(e)
-                        }
+                        
                         })
                         console.log("data : "+ data.length, list); 
                         data.pop();
